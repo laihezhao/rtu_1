@@ -1,0 +1,9 @@
+#/bin/sh
+#
+# synchronize the hwclock(RTC).
+#
+while true
+do
+	sleep 86400
+	hwclock -w
+done

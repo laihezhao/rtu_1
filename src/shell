@@ -1,0 +1,30 @@
+
+rm /opt/nfs/1.0/main /opt/nfs/1.0/client /opt/nfs/1.0/gather /opt/nfs/1.0/dial /opt/nfs/1.0/adtime
+
+arm-linux-gcc -o main main.c database.c log.c error.c ./table/server.c ./table/siteconf.c \
+	-I../include -I/opt/sqlite3/sqlite3-3.14.1/install-arm/include \
+		-L/opt/sqlite3/sqlite3-3.14.1/install-arm/lib \
+			-lsqlite3 -pthread -lrt -g -Wall 
+
+arm-linux-gcc -o gather gather.c database.c modbus.c local.c packet.c error.c log.c \
+	./table/server.c ./table/devices.c ./table/sitesbs.c ./table/siteconf.c \
+	./table/sitepols.c ./table/pols.c ./table/sbparam.c ./table/polsalarm.c \
+	./table/ctlparam.c \
+		-I../include -I/opt/sqlite3/sqlite3-3.14.1/install-arm/include \
+			-I/opt/libmodbus/libmodbus-3.0.6/install-arm/include \
+		-L/opt/sqlite3/sqlite3-3.14.1/install-arm/lib \
+		-L/opt/libmodbus/libmodbus-3.0.6/install-arm/lib \
+		-lmodbus -lsqlite3 -pthread -lrt -g -Wall 
+
+arm-linux-gcc -o client client.c database.c packet.c log.c error.c ./table/siteconf.c ./table/server.c \
+		-I../include -I/opt/sqlite3/sqlite3-3.14.1/install-arm/include \
+			-I/opt/libmodbus/libmodbus-3.0.6/install-arm/include \
+		-L/opt/sqlite3/sqlite3-3.14.1/install-arm/lib \
+		-L/opt/libmodbus/libmodbus-3.0.6/install-arm/lib \
+		-lmodbus -lsqlite3 -pthread -lrt -g -Wall 
+
+cp client gather main dial adtime /opt/nfs/1.0
+
+cd ../
+
+cp site.db /opt/nfs/1.0/

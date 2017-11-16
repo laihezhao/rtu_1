@@ -1,0 +1,36 @@
+#/bin/sh
+
+DNS1="101.226.4.6"
+DNS2="218.30.118.6"
+/etc/ppp/ppp-on.wcdma &
+sleep 30
+a=0
+while true
+do
+	ping -s 1 -c 5 $DNS1 > /dev/null 2>&1
+	if [ "$?" != "0" ]
+	then
+		ping -s 1 -c 5 $DNS2 > /dev/null 2>&1
+		if [ "$?" != "0" ]
+		then
+			let a=a+1
+			echo "dial failed $a times"
+
+			if [ $a -ge 20 ]
+			then
+				reboot
+			fi
+
+			killall pppd
+			sleep 10
+			/etc/ppp/ppp-on.wcdma &
+			sleep 12
+		else
+			a=0
+			sleep 5
+		fi
+	else
+		a=0
+		sleep 5
+	fi
+done

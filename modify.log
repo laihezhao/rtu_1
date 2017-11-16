@@ -1,0 +1,129 @@
+2017-07-27 08:44	zhaolaihe	site.db:   modify devices table. 
+2017-07-27 08:44	zhaolaihe	devices.h: modify devices_info struct. 
+2017-07-27 08:44	zhaolaihe	devices.c: allocate memory for arguments.
+
+2017-07-27 08:50	zhaolaihe	gather.c: add devicesnum argument; add 1653-1657 line. 
+2017-07-27 08:50	zhaolaihe	client.c: add 823-824 line. 
+2017-07-27 08:55	zhaolaihe	main.c: modify 75-79 line.
+
+2017-07-27 09:00	zhaolaihe	modbus.c: add devicesnum argument;
+						change p_devices->num to devicesnum argument; add 217-220 lines.
+
+2017-07-27 09:01	zhaolaihe	modbus.c: add config.h (line 9); delete some Macros instead of add them to config.h. 
+
+2017-07-27 09:01	zhaolaihe	main.c:   add __DBG__ Macros and relative debuging information.
+2017-07-27 09:01	zhaolaihe	client.c: add __DBG__ Macros and relative debuging information.
+2017-07-27 09:01	zhaolaihe	gather.c: add __DBG__ Macros and relative debuging information.
+2017-07-27 09:01	zhaolaihe	modbus.c: add __DBG__ Macros.
+2017-07-27 09:01	zhaolaihe	packet.c: modify __PKT_DBG__ to __DBG__ Macros.
+2017-07-27 09:01	zhaolaihe	database.c: add __DBG__ Macros.
+2017-07-27 09:01	zhaolaihe	local.c: add __DBG__ Macros and reltive debuging information.
+
+/*
+fail
+2017-07-27 09:11	zhaolaihe	gather.c: modbus_get_float_retry instead of modbus_get_float_sw function.
+2017-07-27 09:11	zhaolaihe	modbus.c: delete modbus_get_float_sw and  modbus_get_uint16_sw function.
+*/
+
+2017-07-27 11:11	zhaolaihe	site.db: modify devices/sitepols/sbparam/polsalarm/ctlparam tables(devaddr argument).
+
+2017-07-27 12:11	zhaolaihe	dial.c: update DNS1 and DNS2; DNS1="101.226.4.6", DNS2="218.30.118.6".
+
+2017-07-27 16:11	zhaolaihe	gather.c: fix dug(line 293 if pctlparam->datatype != 3).
+2017-07-27 16:11	zhaolaihe	gather.c: change modbus_set_float_retry to modbus_get_uint16_t_sw(line 306).
+
+2017-07-28 13:11	zhaolaihe	site.db: modify polsalarm table change 208 to 210, and change 210 to 208.
+
+2017-07-28 13:31	zhaolaihe	gather.c: add 986-987 lines; add 866-867 lines; add 746-747 lines; adjust 518-519 lines; 
+							adjust 344-345 lines; 
+
+2017-07-28 18:31	zhaolaihe	client.c: add reboot_flag argument, CONNECT_TIMES Macro; when connect server failed too many times, 
+							the system reboot. 
+
+2017-07-29 10:31	zhaolaihe	client.c: add set_usr1_handler() function: line 902, for waking up the sleeping heartbeat routine; 
+							fix heartbeat_routine(void *arg): add line 512-520 for fixing when the server shut down 
+							or catch SIGPIPE signal, stope heartbeat timer. 
+2017-07-29 13:31	zhaolaihe	main.c: fix the reboot process programm, if gather process died, reboot gather process, gather_pid argument differ 							from the last time pid.so client process send signal will failed. 
+							must reboot the system; delete some debugging information. 
+
+2017-07-30 13:31	zhaolaihe	gather.c: fix the sec timer doesn't work; add line 1692-1693; add line 1696-1697; 
+							add line 1700-1701; add line 1705-1706; the reson is if it_value.tv_sec = 0, 
+							the timer will not work. 
+
+2017-07-30 13:51	zhaolaihe	dial: when run dial , sleep change 20 to 30, be sure dial ok.
+2017-07-30 13:51	zhaolaihe	dial: dial failing times change 10 to 20;
+
+2017-07-31 15:51	zhaolaihe	client.c: add set_localtime(const char *settime) function(line 711-740), 
+							when the system login success, obtain the newest time from the server, update the system time.
+
+2017-08-01 16:51	zhaolaihe	config.h: change HEARTBEAT_TIME to 100;
+
+2017-08-03 08:51	zhaolaihe	gather.c: add information for line 1710(line 1709);
+
+2017-08-03 08:51	zhaolaihe	gather.c: pay attention to that line 1710 code can not solve really the problem(when login in the system, 
+							client process will change the system time,but the gather process has run first, 
+							the timers have started, so set_local_time operation will modify the kernel timer. 
+							so the timers in gather process will not work normally.)
+
+
+2017-08-04 18:51	zhaolaihe	site.db: modify sitepols/sbparam/polsalarm/ tables.  
+2017-08-04 19:51	zhaolaihe	gather.c: modify s.  
+
+
+2017-08-04 19:51	zhaolaihe	gather.c: sendalarm_routine(void *arg) function: add line 1389-1434; when the system starts, firstly send cancel alarm info command.  
+
+
+2017-08-07 19:51	zhaolaihe	client.c: add lines 505-511; if send heartbeat datas failed, so resend.
+
+
+2017-08-08 9:51		zhaolaihe	gather.c: modify line 1099 (resolve the daily date can not be sended to server).
+
+
+2017-08-08 15:51	zhaolaihe	gather.c: modify line 644 (40000---40001); line 1544 (40000---40001); add line 1522-1556 for solving low alarm high value.
+
+2017-08-09 9:51		zhaolaihe	client.c: cancle set_localtime(settime) (line 790)).
+
+
+2017-08-09 21:51	zhaolaihe	client.c: add lines 418-421; add lines 624-627; for solving receive inllegal data from MODBUS devices.
+
+
+2017-08-10 21:51	zhaolaihe	client.c: modify CONNECT_TIMES from 1000 to 200(line 27).
+
+
+2017-08-11 21:31	zhaolaihe	gather.c: add is_in(char *str) function(lines 85-100); add lines 442-446; add lines 658-662; 
+							for fixing the bug: when receiving inllegal data from MODBUS devices.
+
+2017-08-13 21:31	zhaolaihe	gather.c: add lines 874-887; add lines 1007-1020;for delete rtdata and minutedata.
+
+2017-08-13 21:40	zhaolaihe	site.db: modify pols table(polid = 208-> isstat=1); modify sitepols table(polid = 208-> regaddr=40150);
+
+2017-08-14 11:40	zhaolaihe	modbus.c: modify usleep(DELAY) to sleep(DELAY); fprintf function add addr parameter to find which pols read data error;
+
+2017-08-14 11:50	zhaolaihe	config.h: modify DELAY(100) to DELAY(1); RETRY_TIMES(3) to RETRY_TIMES(1);
+
+2017-08-14 18:50	zhaolaihe	gather.c: add modbus_retry_times argument(line 40); add ERROR_TIMES Macro(linet 32); add code modbus_retry_times++(line 456,612,673.708); add code (lines 786-789); for that when read modbus failed too many times, the system reboot; 
+ 
+2017-08-15 18:50	zhaolaihe	client.c: add argument senddog(line 43); modify lines 506-527 code; add line 529 code; add line 855-856 code; add line 862 code; for if heartbeat_routine block at msend function; the timer can not start, the client will can not send heartbeat data; 
+
+2017-08-17 10:50	zhaolaihe	client.c: add code line 828; add code line 963; add code line 1098; for fixing the day_vag data error and hour_avg data error; as the last data loss of calculate data; 
+
+2017-08-17 20:30	zhaolaihe	database.c: add code line 46(argument char *zErr); modify code line 53-60; add argument char *zErr; modify code line 70-76; 
+
+2017-08-18 08:30	zhaolaihe	client.c: add line 383 code; add line 419 code; add line 455 code; if can not connect server or login in failed retry send minutedata, hourlydata, dailydata stop; fix the bug: if socket is bad, still send data , the kernel will send SIGPIPE signal. 
+
+2017-08-18 08:40	zhaolaihe	config.h: modify RETRY_TIME_HOUR from 600 to 60; modify RETRY_TIME_DAY from 3600 to 60. 
+
+
+2017-09-22 17:40	zhaolaihe	main.c: add set_chld_handler() and sig_chld_handler() to handle the SIGCHLD signal. 
+
+2017-09-22 17:50	zhaolaihe	config.h: add SA_RESTART Macros. 
+
+2017-09-23 17:40	zhaolaihe	config.h: add __DBG__ Macros. 
+
+2017-09-24 10:40	zhaolaihe	main.c, client.c, gather.c : modify the signal handler function; define sigfunc_t pointer. 
+
+2017-09-24 11:40	zhaolaihe	main.c: modify sig_chld_handler() function. 
+
+2017-10-6 11:40		zhaolaihe	main.c: modify lines 56-57(delete the printf()). 
+
+2017-10-17 11:40	zhaolaihe	devices.h: char parit---->char parit[4]; devices.c: add 69-70 lines; modbus.c: modify the line 254. 
